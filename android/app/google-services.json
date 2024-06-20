@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "634179897850-hsv5d6v27epds9jaktrtapbf2rr7gld3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zeeshan_raza.infotik",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "634179897850-u0vmtpc19va6ige2bn5dvno67rvr64a8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

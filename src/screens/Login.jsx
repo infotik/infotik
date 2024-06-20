@@ -48,9 +48,9 @@ const Login = () => {
 
           <View style={tw`mb-3 mt-1 flex flex-row justify-center`}>
             <View style={tw`flex flex-row  gap-1`}>
-              <Text style={tw.style(`text-[${COLORS.white}] text-[13px]`, { fontFamily: 'Montserrat' })}>Don't have an account?</Text>
+              <Text style={tw.style(`text-[${COLORS.registerText}] text-[14px]`, { fontFamily: 'Montserrat' })}>Don't have an account?</Text>
               <TouchableOpacity onPress={() => navigation.navigate('register')}  >
-                <Text style={tw.style(`text-[${COLORS.secondary}] text-[13px] translate-y-2`, { fontFamily: 'Montserrat' })} > Sign Up  </Text>
+                <Text style={tw.style(`text-[${COLORS.coloredText}] text-[14px]`, { fontFamily: 'Montserrat' })} > Sign Up  </Text>
               </TouchableOpacity>
             </View>
           </View>

@@ -3,4 +3,6 @@ export const COLORS = {
   secondary: "#6A98CC",
   white: "#FFFFFF",
   link: "#FFD700",
+  registerText: "#E5E5E5",
+  coloredText: "#3B82F6",
 };

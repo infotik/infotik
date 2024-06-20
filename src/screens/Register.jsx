@@ -138,13 +138,13 @@ const Register = () => {
                             <View style={tw`flex flex-col items-center mt-6 gap-2`}>
                                 <Text style={tw.style(`text-white text-[13px]`, { fontFamily: 'Montserrat' })}>Or</Text>
                                 <TouchableOpacity onPress={() => setShowForm(true)}>
-                                    <Text style={tw.style(`text-[${COLORS.secondary}] text-[13px]`, { fontFamily: 'Montserrat' })}>Sign Up with Email</Text>
+                                    <Text style={tw.style(`text-[${COLORS.secondary}] text-[14px]`, { fontFamily: 'Montserrat' })}>Sign Up with Email</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={tw`flex flex-row justify-center gap-1 mb-4 mt-4`}>
-                                <Text style={tw.style(`text-[${COLORS.white}] text-[12px]`, { fontFamily: 'Montserrat' })}>You Already have an account?</Text>
+                                <Text style={tw.style(`text-[${COLORS.white}] text-[14px]`, { fontFamily: 'Montserrat' })}>You Already have an account?</Text>
                                 <TouchableOpacity onPress={() => navigation.navigate('login')}>
-                                    <Text style={tw.style(`text-[${COLORS.secondary}] text-[13px]`, { fontFamily: 'Montserrat' })}>Sign In</Text>
+                                    <Text style={tw.style(`text-[${COLORS.secondary}] text-[14px]`, { fontFamily: 'Montserrat' })}>Sign In</Text>
                                 </TouchableOpacity>
                             </View>
                         </>

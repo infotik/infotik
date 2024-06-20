@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "634179897850",
+    "firebase_url": "https://infotik-617ac-default-rtdb.firebaseio.com",
+    "project_id": "infotik-617ac",
+    "storage_bucket": "infotik-617ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634179897850:android:db3a411cbb832226903c43",
+        "android_client_info": {
+          "package_name": "com.zeeshan_raza.infotik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634179897850-u0vmtpc19va6ige2bn5dvno67rvr64a8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zeeshan_raza.infotik",
+            "certificate_hash": "ac63557fc1360c3cce2b31001a3e4eb48ae60412"
+          }
+        },
+        {
+          "client_id": "634179897850-infcah85tmm4lqha47gref946klgjrce.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCohjLFcx96rihjvTev5MrqCMvpg7U7_Ps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634179897850-5toavm1kcjormgh5ecn5e147hl3tgd2i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -36,36 +36,33 @@ const Login = () => {
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
   return (
-    <View style={tw`flex-1 bg-[${COLORS.primary}] flex justify-center items-center`}>
-      <View style={tw` w-[18rem] py-4 rounded-md`}>
-        <View style={tw`flex items-center`}>
-          <Image source={require('../../assets/inapplogo.png')} style={{ width: windowWidth * 0.6, height: windowHeight * 0.3, marginBottom: 2 }} />
+    <View style={tw`flex-1 bg-[${COLORS.primary}] flex justify-start items-center`}>
+      <View style={tw` w-[18rem] gap-4 mt-10 rounded-md`}>
+        <View style={tw`flex items-center mt-10`}>
+          <Image resizeMode="contain" source={require('../../assets/bented.png')} style={{ width: windowWidth * 0.7, height: windowHeight * 0.3, marginBottom: 2, }} />
         </View>
 
+        <View style={tw`mt-10`}>
+          <Input placeholder={"Enter Your email"} value={email} setValue={setEmail} />
+          <Input placeholder={"Enter Your password"} value={password} setValue={setPassword} secureTextEntry={true} />
 
-        <Input placeholder={"Enter Your email"} value={email} setValue={setEmail} />
-        <Input placeholder={"Enter Your password"} value={password} setValue={setPassword} secureTextEntry={true} />
-
-        <View style={tw`mb-3 mt-1 flex flex-row justify-center`}>
-          <View style={tw`flex flex-row  gap-1`}>
-            <Text style={tw.style(`text-[${COLORS.white}] text-[13px]`, { fontFamily: 'Montserrat' })}>Don't have an account?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('register')}  >
-              <Text style={tw.style(`text-[${COLORS.secondary}] text-[13px] translate-y-2`, { fontFamily: 'Montserrat' })} > Sign Up  </Text>
+          <View style={tw`mb-3 mt-1 flex flex-row justify-center`}>
+            <View style={tw`flex flex-row  gap-1`}>
+              <Text style={tw.style(`text-[${COLORS.white}] text-[13px]`, { fontFamily: 'Montserrat' })}>Don't have an account?</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('register')}  >
+                <Text style={tw.style(`text-[${COLORS.secondary}] text-[13px] translate-y-2`, { fontFamily: 'Montserrat' })} > Sign Up  </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View>
+            <TouchableOpacity onPress={() => ToastAndroid.show('Coming soon', ToastAndroid.SHORT)}>
+              <Text style={tw.style(` text-center text-white text-[13px] mb-3`, { fontFamily: 'Montserrat' })}> Forgot Password?</Text>
             </TouchableOpacity>
           </View>
+          <View style={tw`items-center mt-1`}>
+            <Button onPress={handleLogin} >SIGN IN</Button>
+          </View>
         </View>
-        <View>
-          <TouchableOpacity onPress={() => ToastAndroid.show('Coming soon', ToastAndroid.SHORT)}>
-            <Text style={tw.style(` text-center text-white text-[13px] mb-3`, { fontFamily: 'Montserrat' })}> Forgot Password?</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={tw`items-center mt-1`}>
-          <Button onPress={handleLogin} >SIGN IN</Button>
-        </View>
-        <View style={tw`my-1`}></View>
-        {/* <Button onPress={handleLogin}>
-          Google
-        </Button> */}
       </View>
     </View>
   )

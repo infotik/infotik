@@ -101,6 +101,11 @@ const Keyword = () => {
   }
   const navigation = useNavigation();
   const handleNext = async () => {
+    if (keyword.length < 5) {
+      alert('Please select at least 5 keywords.');
+      return;
+    }
+
     const res = await saveKeyword(keyword);
     if (res) {
       navigation.reset({

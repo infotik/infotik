@@ -5,6 +5,9 @@ import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { FIREBASE_AUTH, FIREBASE_DB } from '../../../firebaseConfig';
 import { useDispatch } from 'react-redux';
 import { getUserById } from '../../redux/actions/user';
+import { Avatar } from 'react-native-paper';
+import { COLORS } from '../../constants';
+import tw from '../../customtwrnc';
 
 const CommentModel = forwardRef(({ post }, prevnetRef) => {
   useImperativeHandle(prevnetRef, () => ({
@@ -56,36 +59,53 @@ const CommentModel = forwardRef(({ post }, prevnetRef) => {
     }
   }
 
+
+  const [users, setUsers] = useState({});
   useEffect(() => {
     setComments(post.comments);
-    // console.log(comments);
-  });
-
+    // Fetch all users at once
+    if (post.comments) {
+      Promise.all(post.comments.map(comment => getUserById(comment.sender)))
+        .then(usersData => {
+          const usersObj = usersData.reduce((obj, user, index) => {
+            obj[post.comments[index].sender] = user;
+            return obj;
+          }, {});
+          setUsers(usersObj);
+        });
+    }
+  }, [post.comments]);
+  // console.log(users)
   return (
     <BottomSheetModalProvider>
-      <View style={styles.container}>
+      <View style={tw`flex w-full items-center p-10`}>
         <BottomSheetModal
           ref={bottomSheetModalRef}
           index={1}
           snapPoints={snapPoints}
           onChange={handleSheetChanges}
-          style={styles.bottomSheet} // Add this line to apply zIndex
         >
-          <BottomSheetView style={styles.contentContainer}>
+          <BottomSheetView >
             <ScrollView>
               {comments?.map((comment, index) => {
                 // console.log(comment.sender);
-                const user = getUserById(comment.sender);
-                // console.log(user);
+                const user = users[comment.sender];
+                if (!user) return null; // or a loading spinner
                 return (
-                  <View key={index} style={{ backgroundColor: "white", width: "100%", flex: 1 }}>
-                    <Image source={{
-                      uri: user.photoURL,
-                    }} />
-                    <View>
-                      <Text style={{ color: "black" }}>{user.displayName}</Text>
-                      <Text>{comment.content}</Text>
+                  <View key={index} style={tw`flex w-full bg-white`}>
+                    <View style={tw`flex flex-row items-center mb-10`}>
+                      {user?.photoURL ? <Image source={{
+                        uri: user?.photoURL,
+
+                      }} /> : <Avatar.Icon
+                        size={36}
+                        backgroundColor={COLORS.secondary}
+                        icon={"account"}
+                      />}
+                      <Text style={{ color: "black" }}>{user.username}</Text>
+
                     </View>
+                    <Text>{comment.content}</Text>
                   </View>)
               })}
             </ScrollView>
@@ -110,21 +130,12 @@ const CommentModel = forwardRef(({ post }, prevnetRef) => {
 })
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    justifyContent: 'center',
-    position: 'absolute',
-  },
-  contentContainer: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: "black",
-  },
-  bottomSheet: {
-    position: 'relative',
-    zIndex: 10000, // Set your desired zIndex value here
-  },
+
+
+  // bottomSheet: {
+  //   position: 'relative',
+  //   zIndex: 10000, // Set your desired zIndex value here
+  // },
   postBtn: {
     color: 'white',
     backgroundColor: '#58b5f1',

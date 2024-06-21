@@ -38,13 +38,13 @@ export const GradientText = ({ children, selected, onPress }) => {
         ) :
           (
             <TouchableOpacity onPress={onPress}>
-              <LinearGradient
+              {/* <LinearGradient
                 colors={['#53C8D8', '#668AF7']}
                 style={tw`p-1 px-3 rounded-3xl flex items-center `}
 
-              >
-                <Text style={tw`text-white  text-base font-bold`}>{children}</Text>
-              </LinearGradient>
+              > */}
+              <Text style={tw`p-1 px-2 border rounded-2xl items-center flex text-black bg-[${COLORS.keywordColor}]  text-base font-bold`}>{children}</Text>
+              {/* </LinearGradient> */}
             </TouchableOpacity>
           )
       }

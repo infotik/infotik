@@ -1,21 +1,22 @@
-import { Text, View, Image } from 'react-native'
-import React, { Component } from 'react'
-import tw from '../customtwrnc'
-import { COLORS } from '../constants'
+import React from 'react'
+import { Image, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { COLORS } from '../constants'
+import tw from '../customtwrnc'
 
 const ReelCard = ({ media, description, onPress }) => {
     return (
         <TouchableOpacity onPress={onPress}>
-            <View style={tw`border border-[${COLORS.secondary}] w-[42] h-[55] rounded-md relative flex justify-end`}>
+            <View style={tw` w-[40] h-[70]  relative flex justify-end`}>
                 <Image
-                    style={tw.style({ resizeMode: 'cover' }, `absolute top-0 left-0 right-0 bottom-0`)}
+                    style={tw.style({ resizeMode: 'cover' }, ` border rounded-md border-[${COLORS.secondary}] absolute top-0 left-0 right-0 bottom-0`)}
                     source={{ uri: media[1] }}
                 />
-
-                <Text numberOfLines={3} style={tw`text-white/80 p-2`}>
-                    {description}
-                </Text>
+                <View>
+                    <Text numberOfLines={2} style={tw`text-white/80 py-1 bg-black/80 text-xs m-0.4`}>
+                        {description}
+                    </Text>
+                </View>
             </View>
         </TouchableOpacity>
     )

@@ -1,14 +1,14 @@
-import { View, Text, ScrollView, TextInput, Image, ActivityIndicator } from 'react-native'
-import React, { useEffect, useReducer, useRef, useState } from 'react'
-import tw from '../customtwrnc'
-import { COLORS } from '../constants'
 import { Feather } from '@expo/vector-icons'
-import { getPostByKeywords, getUserByQuery } from '../redux/actions/user'
-import { Avatar } from 'react-native-paper'
 import { TouchableOpacity } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
+import React, { useEffect, useRef, useState } from 'react'
+import { ActivityIndicator, Image, ScrollView, Text, TextInput, View } from 'react-native'
+import { Avatar } from 'react-native-paper'
+import { useDispatch } from 'react-redux'
 import ReelCard from '../components/ReelCard'
-import { useDispatch, useSelector } from 'react-redux'
+import { COLORS } from '../constants'
+import tw from '../customtwrnc'
+import { getPostByKeywords, getUserByQuery } from '../redux/actions/user'
 import { GradientText } from './Keyword'
 
 const allKeyword = [
@@ -176,9 +176,11 @@ const Discover = () => {
                                     </TouchableOpacity>
                                 </View>
 
-                                <View style={tw`flex justify-center flex-row gap-5 p-5`}>
+                                <View style={tw`flex flex-row items-center justify-center flex-wrap gap-5 pt-5`}>
                                     {
-                                        posts?.slice(2, 4).map((data, index) => (<ReelCard key={index} {...data} onPress={() => handleReelsPress(data)} />))
+                                        posts?.slice(2).map((data, index) => (
+                                            <ReelCard {...data} onPress={() => handleReelsPress(data)} />
+                                        ))
                                     }
                                 </View>
 

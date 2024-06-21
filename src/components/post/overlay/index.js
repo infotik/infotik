@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { throttle } from "throttle-debounce";
 // import { openCommentModal } from '../../../../redux/actions/modal';
-import { useNavigation } from '@react-navigation/core';
+import { useNavigation } from "@react-navigation/core";
 
 /**
  * Function that renders a component meant to be overlapped on
@@ -18,8 +18,8 @@ import { useNavigation } from '@react-navigation/core';
  */
 export default function PostSingleOverlay({ user, post }) {
   const currentUser = useSelector((state) => state.auth.currentUser);
-  const dispatch = useDispatch()
-  const navigation = useNavigation()
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
   const [currentLikeState, setCurrentLikeState] = useState({
     state: false,
     counter: post.likesCount,
@@ -64,7 +64,10 @@ export default function PostSingleOverlay({ user, post }) {
 
       <View style={styles.leftContainer}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('profileOther', { initialUserId: user?.uid })}>
+          onPress={() =>
+            navigation.navigate("profileOther", { initialUserId: user?.uid })
+          }
+        >
           <Image style={styles.avatar} source={{ uri: user?.photoURL }} />
         </TouchableOpacity>
 
@@ -82,19 +85,12 @@ export default function PostSingleOverlay({ user, post }) {
           </Text>
         </TouchableOpacity>
 
-
         <TouchableOpacity
           style={styles.actionButton}
           // onPress={() => dispatch(openCommentModal(true, post))}
         >
-          <Ionicons
-            color="white"
-            size={40}
-            name={"chatbubble"}
-          />
-          <Text style={styles.actionButtonText}>
-            {post.commentsCount}
-          </Text>
+          <Ionicons color="white" size={40} name={"chatbubble"} />
+          <Text style={styles.actionButtonText}>{post.commentsCount}</Text>
         </TouchableOpacity>
       </View>
     </View>

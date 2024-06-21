@@ -369,6 +369,7 @@ export const createPost = async (
       description,
       likesCount: 0,
       commentsCount: 0,
+      comments: [],
       creation: serverTimestamp(),
       uid: storagePostId,
       newstitle,
@@ -468,7 +469,7 @@ export const getPost = () => async (dispatch) => {
 
 export const getUserById = async (id) => {
   try {
-    const docSnapshot = await getDoc(doc(FIREBASE_DB, "user", id));
+    const docSnapshot = await getDoc(doc(collection(FIREBASE_DB, "user"), id));
     if (docSnapshot.exists()) {
       return docSnapshot.data();
     } else {

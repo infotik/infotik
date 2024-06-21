@@ -464,6 +464,7 @@ export const PostSingle = forwardRef(({ item, ...props }, parentRef) => {
           )}
           <CommentModel
             ref={(preventRef) => (bottomSheetModalRef.current = preventRef)}
+            post={item}
           />
         </View>
       </TouchableWithoutFeedback>

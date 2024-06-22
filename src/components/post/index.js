@@ -57,12 +57,11 @@ export const PostSingle = forwardRef(({ item, ...props }, parentRef) => {
   const [likesCount, setLikesCount] = useState(0);
   const [likeLoading, setLikeLoading] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const bottomSheetModalRef = useRef(null);
   const navigation = useNavigation();
   const [mute, setMute] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [imageFailedToLoad, setImageFailedToLoad] = useState(false);
-
+  const [isCommentModalVisible, setIsCommentModalVisible] = useState(false);
   useImperativeHandle(parentRef, () => ({
     play,
     unload,
@@ -181,8 +180,10 @@ export const PostSingle = forwardRef(({ item, ...props }, parentRef) => {
   };
 
   const OpenComments = () => {
-    console.log("opening...");
-    bottomSheetModalRef.current.open();
+    setIsCommentModalVisible(!isCommentModalVisible);
+  };
+  const closeModal = () => {
+    setIsCommentModalVisible(!isCommentModalVisible);
   };
 
   const handleProfile = () => {
@@ -462,10 +463,14 @@ export const PostSingle = forwardRef(({ item, ...props }, parentRef) => {
               </View>
             </View>
           )}
-          <CommentModel
-            ref={(preventRef) => (bottomSheetModalRef.current = preventRef)}
-            post={item}
-          />
+
+          {isCommentModalVisible && (
+            <CommentModel
+              isVisible={isCommentModalVisible}
+              onClose={closeModal}
+              post={item}
+            />
+          )}
         </View>
       </TouchableWithoutFeedback>
       <View style={tw`flex-1 flex py-12 bg-black`}>

@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "634179897850-iu248p2m08dlsft9h2edils5mn7kbvoh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zeeshan_raza.infotik",
+            "certificate_hash": "0b7ea8838c2cf96c0b4fe2671b9c960fb73c9585"
+          }
+        },
+        {
           "client_id": "634179897850-u0vmtpc19va6ige2bn5dvno67rvr64a8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

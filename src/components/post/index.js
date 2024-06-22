@@ -12,14 +12,13 @@ import {
   Image,
   Linking,
   Text,
-  ToastAndroid,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
 // import { useUser } from '../../hooks/useUser'
 // import PostSingleOverlay from './overlay'
-import { Feather, SimpleLineIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Avatar } from "react-native-paper";
@@ -57,11 +56,13 @@ export const PostSingle = forwardRef(({ item, ...props }, parentRef) => {
   const [likesCount, setLikesCount] = useState(0);
   const [likeLoading, setLikeLoading] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const bottomSheetModalRef = useRef(null);
   const navigation = useNavigation();
   const [mute, setMute] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [imageFailedToLoad, setImageFailedToLoad] = useState(false);
   const [isCommentModalVisible, setIsCommentModalVisible] = useState(false);
+
   useImperativeHandle(parentRef, () => ({
     play,
     unload,
@@ -180,12 +181,13 @@ export const PostSingle = forwardRef(({ item, ...props }, parentRef) => {
   };
 
   const OpenComments = () => {
+    console.log("opening...");
+    // bottomSheetModalRef.current.open();
     setIsCommentModalVisible(!isCommentModalVisible);
   };
   const closeModal = () => {
     setIsCommentModalVisible(!isCommentModalVisible);
   };
-
   const handleProfile = () => {
     stop();
     navigation.navigate("profile", { uid: user.uid });
@@ -314,28 +316,48 @@ export const PostSingle = forwardRef(({ item, ...props }, parentRef) => {
           style={tw`absolute bottom-0 left-0 right-0 top-0 justify-end z-2`}
         >
           {!videoStop && (
-            <View>
-              {/* // like , comment and share */}
-              <View style={tw`py-2 px-2 flex gap-2 items-end`}>
+            <>
+              <View style={tw`py-2 px-4 flex gap-2 items-end`}>
                 <View style={tw`flex gap-0 items-center`}>
-                  <TouchableOpacity onPress={() => HandleLike(item.id)}>
-                    {isLike ? (
+                  <TouchableOpacity onPress={handleProfile}>
+                    {user?.photoURL &&
+                    isValidUrl(user?.photoURL) &&
+                    !imageFailedToLoad ? (
                       <Image
-                        source={require("../../../assets/heartfill.png")}
+                        source={{ uri: user?.photoURL }}
                         style={{
-                          width: 31,
+                          width: 35,
+                          height: 35,
                           resizeMode: "contain",
-                          marginBottom: 1,
+                          marginBottom: 5,
+                          borderRadius: 9999,
+                          marginBottom: 8,
                         }}
+                        onError={() => setImageFailedToLoad(true)}
                       />
                     ) : (
-                      <SimpleLineIcons
-                        name="heart"
-                        size={30}
-                        resizeMode="contain"
-                        color="#fff"
+                      <Avatar.Icon
+                        size={36}
+                        backgroundColor={COLORS.secondary}
+                        icon={"account"}
                       />
                     )}
+                  </TouchableOpacity>
+                </View>
+                <View style={tw`flex gap-0 items-center`}>
+                  <TouchableOpacity onPress={() => HandleLike(item.id)}>
+                    <Image
+                      source={
+                        isLike
+                          ? require("../../../assets/heartfill.png")
+                          : require("../../../assets/heart.png")
+                      }
+                      style={{
+                        width: 31,
+                        resizeMode: "contain",
+                        marginBottom: 5,
+                      }}
+                    />
                   </TouchableOpacity>
                   <Text style={tw`text-white text-sm font-montserrat`}>
                     {likesCount}
@@ -343,11 +365,13 @@ export const PostSingle = forwardRef(({ item, ...props }, parentRef) => {
                 </View>
                 <View style={tw`flex gap-0 items-center`}>
                   <TouchableOpacity onPress={OpenComments}>
-                    <Feather
-                      name="message-circle"
-                      color="#fff"
-                      size={31}
-                      resizeMode="contain"
+                    <Image
+                      source={require("../../../assets/comment.png")}
+                      style={{
+                        width: 34,
+                        resizeMode: "contain",
+                        marginBottom: 5,
+                      }}
                     />
                   </TouchableOpacity>
                   <Text style={tw`text-white text-sm font-montserrat`}>
@@ -355,73 +379,34 @@ export const PostSingle = forwardRef(({ item, ...props }, parentRef) => {
                   </Text>
                 </View>
                 <View style={tw`flex gap-0 items-center`}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      ToastAndroid.show(
-                        "Feature coming soon.",
-                        ToastAndroid.SHORT
-                      );
+                  <Image
+                    source={require("../../../assets/share.png")}
+                    style={{
+                      width: 34,
+                      resizeMode: "contain",
+                      marginBottom: 5,
                     }}
-                  >
-                    <Feather
-                      color="#fff"
-                      size={28}
-                      resizeMode="contain"
-                      name="send"
-                    />
-                  </TouchableOpacity>
+                  />
                   <Text style={tw`text-white text-sm font-montserrat`}>
                     Share
                   </Text>
                 </View>
               </View>
-              {/* // profile pic, username and follow button */}
               <View style={tw`px-4 flex-row justify-start items-center gap-3 `}>
+                <Text style={tw`text-white text-lg font-montserrat`}>
+                  @{user?.username}
+                </Text>
                 <TouchableOpacity
-                  style={tw`flex-row items-center gap-2`}
-                  onPress={handleProfile}
-                >
-                  {user?.photoURL &&
-                  isValidUrl(user?.photoURL) &&
-                  !imageFailedToLoad ? (
-                    <Image
-                      source={{ uri: user?.photoURL }}
-                      style={{
-                        width: 35,
-                        height: 35,
-                        resizeMode: "contain",
-                        marginBottom: 5,
-                        borderRadius: 9999,
-                        marginBottom: 8,
-                      }}
-                      onError={() => setImageFailedToLoad(true)}
-                    />
-                  ) : (
-                    <Avatar.Icon
-                      size={36}
-                      backgroundColor={COLORS.secondary}
-                      icon={"account"}
-                    />
-                  )}
-                  <Text style={tw`text-white text-base font-semibold`}>
-                    {user?.username}
-                  </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  style={tw` px-1 rounded-md border-2 border-white flex flex-row items-center gap-1 ${
+                  style={tw`py-1 px-2 rounded-md border border-white flex flex-row items-center gap-1 ${
                     isFollowing ? `bg-transparent text-white` : ""
                   }`}
                   onPress={handleFollow}
                 >
-                  <Text
-                    style={tw`text-white text-base font-semibold font-montserrat `}
-                  >
+                  <Text style={tw`text-white text-base font-montserrat `}>
                     {isFollowing ? "Unfollow" : "Follow"}
                   </Text>
                 </TouchableOpacity>
               </View>
-              {/* hashtags */}
               <View style={tw`py-2 px-4`}>
                 <FlatList
                   key={index}
@@ -431,7 +416,6 @@ export const PostSingle = forwardRef(({ item, ...props }, parentRef) => {
                   horizontal={true} // Set horizontal to true
                 />
               </View>
-              {/* news description newslink */}
               <View
                 style={tw`flex flex-row items-center gap-2 border-t border-b border-[${COLORS.secondary}] pl-4`}
               >
@@ -461,9 +445,8 @@ export const PostSingle = forwardRef(({ item, ...props }, parentRef) => {
                   </LinearGradient>
                 </TouchableOpacity>
               </View>
-            </View>
+            </>
           )}
-
           {isCommentModalVisible && (
             <CommentModel
               isVisible={isCommentModalVisible}
